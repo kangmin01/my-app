@@ -1,7 +1,7 @@
+import Image from "next/image";
 import { getProduct, getProducts } from "@/app/service/products";
-import { notFound } from "next/navigation";
-
-// export const revalidate = 2;
+import { notFound, redirect } from "next/navigation";
+import GoProductsButton from "../../../components/GoProductsButton";
 
 type Props = {
   params: {
@@ -23,9 +23,21 @@ export default async function ProductPage({ params: { slug } }: Props) {
   // 서버 파일에  있는 데이터중 해당 제품의 정보를 찾아서 그걸 보여줌
   const product = await getProduct(slug);
   if (!product) {
-    notFound();
+    redirect("/products");
+    // notFound();
   }
-  return <h1>{product.name} 제품 설명 페이지</h1>;
+  return (
+    <>
+      <h1>{product.name} 제품 설명 페이지</h1>
+      <Image
+        src={`/images/${product.image}`}
+        alt={product.name}
+        width="300"
+        height="300"
+      />
+      <GoProductsButton />
+    </>
+  );
 }
 
 export async function generateStaticParams() {
