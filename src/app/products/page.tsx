@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { getProducts } from "../service/products";
 import MeowArticle from "@/components/MeowArticle";
-import clothesImage from "/public/images/clothes.jpg";
+import clothesImage from "public/images/clothes.jpg";
 
 export default async function ProductsPage() {
   const products = await getProducts();
